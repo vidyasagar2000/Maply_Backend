@@ -124,6 +124,7 @@ router.post(
             res.json({
               success: success,
               json: jwtToken,
+              name: admin.name
             });
           }
         }

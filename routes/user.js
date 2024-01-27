@@ -201,4 +201,21 @@ router.get("/pinlocations", fetchUser, async (req, res) => {
   }
 });
 
+//Route 6: DELETE /api/user/deletepinlocation
+router.delete("/deletepinlocation",fetchUser,async (req,res)=>{
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  try {
+    const delPinPlace = await PinLocation.findOneAndDelete({
+      user: req.user.id,
+      latitude: latitude,
+      longitude: longitude
+    })
+    res.status(200).json({msg:"Pin deleted Successfully!"})
+  } catch (error) {
+    res.status(500).json({error:"Internal Server error"})
+  }
+})
+
+
 module.exports = router;

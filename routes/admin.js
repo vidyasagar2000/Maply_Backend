@@ -108,4 +108,34 @@ router.get("/feedback", fetchAdmin, async (req, res) => {
   }
 });
 
+
+//Route 4: DELETE /api/admin/deletePlace
+router.delete("/deletePlace",fetchAdmin,async (req,res)=>{
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  try {
+    const delPlace = await Place.findOneAndDelete({
+      latitude: latitude,
+      longitude: longitude
+    })
+    res.status(200).json({msg:"Place deleted Successfully!"})
+  } catch (error) {
+    res.status(500).json({error:"Internal Server error"})
+  }
+})
+
+//Route 5: DELETE /api/admin/deleteuserlocationupdates
+router.delete("/deleteuserlocationupdates",fetchAdmin,async (req,res)=>{
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  try {
+    const delPlace = await UserReqLocation.findOneAndDelete({
+      latitude: latitude,
+      longitude: longitude
+    })
+    res.status(200).json({msg:"Update deleted Successfully!"})
+  } catch (error) {
+    res.status(500).json({error:"Internal Server error"})
+  }
+})
 module.exports = router;
